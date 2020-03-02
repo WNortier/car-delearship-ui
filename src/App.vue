@@ -54,22 +54,6 @@
       </b-container>
     </header>
 
-    <section id="actions" class="py-4 mb-4 bg-light">
-      <b-container>
-        <b-row>
-          <div class="col-md-3 my-1">
-            <router-link  class="btn btn-primary btn-block text-white" to="/about"><i class="fas fa-plus"></i> View Inventory</router-link>
-          </div>
-          <div class="col-md-3 my-1">
-           <router-link  class="btn btn-warning btn-block text-white" to="/"><i class="fas fa-plus"></i> View Makes</router-link>
-          </div>
-          <div class="col-md-3 my-1">
-            <router-link  class="btn btn-success btn-block text-white" to="/"><i class="fas fa-plus"></i> View Inventory</router-link>
-          </div>
-        </b-row>
-      </b-container>
-    </section>
-
     <router-view />
 
   </div>
