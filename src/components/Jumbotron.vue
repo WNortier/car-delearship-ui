@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <b-jumbotron header="" lead="Welcome to the Auto Trader Dashboard">
+      <b-jumbotron header="" :lead="msg">
         <p>Welcome</p>
         <!-- <b-row>
           <b-col cols="3"></b-col>

@@ -5,7 +5,7 @@
       <b-container>
         <b-row>
           <div class="col-md-3 my-1">
-            <router-link class="btn btn-primary btn-block text-white" to="/about"><i class="fas fa-plus"></i> View
+            <router-link class="btn btn-primary btn-block text-white" to="/inventory"><i class="fas fa-plus"></i> View
               Inventory</router-link>
           </div>
           <div class="col-md-3 my-1">
@@ -20,8 +20,7 @@
       </b-container>
     </section>
 
-    <Jumbotron msg="Welcome to Your Vue.js App" />
-    <p>{{searchPool}}</p>
+    <Jumbotron msg="Welcome to Autos Inventory" />
   </div>
 </template>
 

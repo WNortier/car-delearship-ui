@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <!-- <router-link to="/">Home</router-link> 
-    <router-link to="/about">About</router-link>-->
+    <router-link to="/inventory">Inventory</router-link>-->
+
+    <!-- NAVBAR -->
     <div>
       <b-navbar toggleable="lg" type="dark" variant="dark">
         <b-container>
-          <b-navbar-brand href="#" to="/">Auto Trader</b-navbar-brand>
+          <b-navbar-brand href="#" to="/">Autos Inventory</b-navbar-brand>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
               <b-nav-item href="#" to="/">Home</b-nav-item>
-              <b-nav-item href="#" to="about">About</b-nav-item>
+              <b-nav-item href="#" to="inventory">Inventory</b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
@@ -34,7 +36,12 @@
 
               <b-nav-form>
                 <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="search"></b-form-input>
-                <b-button size="sm" class="my-2 my-sm-0" type="text" @click.prevent="emitSearch('Volkswagen')">Search</b-button>
+                <b-button
+                  size="sm"
+                  class="my-2 my-sm-0"
+                  type="text"
+                  @click.prevent="emitSearch('Volkswagen')"
+                >Search</b-button>
               </b-nav-form>
             </b-navbar-nav>
           </b-collapse>
@@ -42,12 +49,14 @@
       </b-navbar>
     </div>
 
+    <!-- NAV ICON -->
     <header class="py-2 bg-info">
       <b-container>
         <b-row>
           <b-col cols="12">
             <h1 class="text-left text-white">
-              <i class="fas fa-cog"></i>Dashboard
+              <i :class="icon"></i> {{menuName}}
+              <i class="icon"></i>
             </h1>
           </b-col>
         </b-row>
@@ -55,23 +64,29 @@
     </header>
 
     <router-view />
-
   </div>
 </template>
 
 <script>
 export default {
-  data(){
+  data() {
     return {
       search: "",
-      value: ""
-    }
+      value: "",
+      icon: "fas fa-home",
+      menuName: "Home"
+    };
   },
-  computed: {
-        emitSearch(payload) {
-          console.log(payload)
-                return true
-            }
+  watch: {
+    $route(to, from) {
+      if (to.name == "Inventory") {
+        this.icon = "fas fa-car"
+        this.menuName = "Inventory"
+      } else if (to.name == "Home") {
+        this.icon = "fas fa-home"
+        this.menuName = "Home"
+      }
+    }
   }
 };
 </script>
