@@ -36,13 +36,13 @@
               </b-nav-item-dropdown>
 
               <b-nav-form>
-                <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="search"></b-form-input>
+                <!-- <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="search"></b-form-input>
                 <b-button
                   size="sm"
                   class="my-2 my-sm-0"
                   type="text"
                   @click.prevent="emitSearch('Volkswagen')"
-                >Search</b-button>
+                >Search</b-button> -->
               </b-nav-form>
             </b-navbar-nav>
           </b-collapse>
@@ -54,11 +54,22 @@
     <header class="py-2 bg-info">
       <b-container>
         <b-row>
-          <b-col cols="12">
+          <b-col cols="4">
             <h1 class="text-left text-white">
               <i :class="icon"></i> {{menuName}}
               <i class="icon"></i>
             </h1>
+          </b-col>
+          <b-col cols="4">
+
+          </b-col>
+          <b-col cols="4">
+
+            <b-nav-form v-if="searchBar">
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="search"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="text" @click.prevent="emitSearch('Volkswagen')">Search
+            </b-button>
+            </b-nav-form>
           </b-col>
         </b-row>
       </b-container>
@@ -75,17 +86,25 @@ export default {
       search: "",
       value: "",
       icon: "fas fa-home",
-      menuName: "Home"
+      menuName: "Home",
+      searchBar: false
     };
   },
   watch: {
     $route(to, from) {
+      console.log(from.name)
       if (to.name == "Inventory") {
-        this.icon = "fas fa-car"
-        this.menuName = "Inventory"
+        this.icon = "fas fa-car";
+        this.menuName = "Inventory";
+        this.searchBar = true;
       } else if (to.name == "Home") {
-        this.icon = "fas fa-home"
-        this.menuName = "Home"
+        this.icon = "fas fa-home";
+        this.menuName = "Home";
+        this.searchBar = false;
+      } else if (to.name == "Statistics") {
+        this.icon = "fas fa-chart-bar"
+        this.searchBar = false;
+        this.menuName = "Statistics";
       }
     }
   }

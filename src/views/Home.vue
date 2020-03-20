@@ -9,11 +9,11 @@
               Inventory</router-link>
           </div>
           <div class="col-md-3 my-1">
-            <router-link class="btn btn-warning btn-block text-white" to="/"><i class="fas fa-plus"></i> View Makes
+            <router-link class="btn btn-warning btn-block text-white" to="/statistics"><i class="fas fa-plus"></i> View Statistics
             </router-link>
           </div>
           <div class="col-md-3 my-1">
-            <router-link class="btn btn-success btn-block text-white" to="/"><i class="fas fa-plus"></i> View Inventory
+            <router-link class="btn btn-success btn-block text-white" to="/"><i class="fas fa-plus"></i> View Staff
             </router-link>
           </div>
         </b-row>
