@@ -77,8 +77,6 @@ export default {
         }
       ],
       totalInventory: true,
-      // colorFilter: false,
-      // makeFilter: false,
       rangeFilter: false,
       value: ""
     };
@@ -91,22 +89,12 @@ export default {
     },
     methods: {
       applyColorFilter() {
-        // this.totalInventory = false
-        // this.makeFilter = false
-        // this.rangeFilter = false
-        // this.colorFilter = true
         this.$store.dispatch("getColors", this.colorDropDownText);
       },
       applyMakeFilter() {
-        // this.totalInventory = false
-        // this.colorFilter = false
-        // this.rangeFilter = false
-        // this.makeFilter = true
         this.$store.dispatch("getMakes", this.makeDropDownText);
       },
       getInventory() {
-        // this.colorFilter = false
-        // this.makeFilter = false
         this.rangeFilter = false
         this.value = 50
         this.$store.dispatch("getInventory");
@@ -120,46 +108,20 @@ export default {
         console.log(filtered)
         switch(filtered) {
           case filtered.includes("colors"):
-            // this.colorFilter = true
-            // this.makesFilter = false
-            // this.totalInventory = false
             this.rangeFilter = true
             this.$store.dispatch("getRangeOnCurrentFilter", {colors:this.colorFilter, makes:this.makesFilter, inventory:this.totalInventory, amount: this.value})
             break;
           case filtered.includes("makes"):
-            // this.makesFilter = true
-            // this.colorFilter = false
-            // this.totalInventory = false
             this.rangeFilter = true
             this.$store.dispatch("getRangeOnCurrentFilter", {colors:this.colorFilter, makes:this.makesFilter, inventory:this.totalInventory, amount: this.value})
             break;
           default:
-            // this.makesFilter = false
-            // this.colorFilter = false
-            // this.totalInventory = true
             this.rangeFilter = true
             this.$store.dispatch("getRangeOnCurrentFilter", {colors:this.colorFilter, makes:this.makesFilter, inventory:this.totalInventory, amount: this.value})
         }
       }
   },
   computed: mapState(["inventory", "colors", "makes", "range"])
-    // methods: {
-  //   myProvider: function myProvider(ctx) {
-  //     const promise = axios.get(
-  //       "https://api-tutor.herokuapp.com/v1/cars?page=" +
-  //         ctx.currentPage +
-  //         "&size=" +
-  //         ctx.perPage
-  //     );
-  //     return promise.then(res => {
-  //       const items = res.data.splice(0, 10);
-  //       this.$store.state.carPool = res.data.splice(0, 10);
-  //       console.log(this.$store.state.carPool);
-  //       return items || [];
-  //     });
-  //   }
-  // }
-  // ,
 };
 </script>
 

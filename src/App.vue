@@ -14,6 +14,7 @@
             <b-navbar-nav>
               <b-nav-item href="#" to="/">Home</b-nav-item>
               <b-nav-item href="#" to="inventory">Inventory</b-nav-item>
+              <b-nav-item href="#" to="statistics">Statistics</b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
