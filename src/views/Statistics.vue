@@ -1,11 +1,10 @@
 <template>
     <div>
-        <stats :inventory="inventory"></stats>
+        <stats :stock="inventory"></stats>
     </div>
 </template>
 
 <script>
-
 import { mapGetters } from "vuex";
 import Stats from "@/components/Stats.vue";
 
@@ -16,9 +15,11 @@ export default {
     components: {
         Stats
     },
+    mounted() {
+        this.$store.dispatch("getInventory");
+    },
     computed: {
         ...mapGetters(["inventory"])
     }
-}; 
-
+};
 </script>
