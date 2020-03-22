@@ -49,7 +49,15 @@
     </section>
     <b-container>
       <!-- <bar-chart :chartData="chartData" /> -->
-      <bar-chart ref='chart' v-if="loaded" :chartData="chartData" :labels="labels" />
+      <bar-chart ref="chart" v-if="loaded" :chartData="chartData" :labels="labels" />
+      <bar-chart ref="chart" v-if="loaded" :chartData="colorData" :labels="colorLabels" />
+
+      <!-- <b-row>
+        <b-col>
+          <b-button variant="secondary">Chart Type</b-button>
+        </b-col>
+        <b-col></b-col>
+      </b-row> -->
     </b-container>
   </div>
 </template>
@@ -66,52 +74,76 @@ export default {
   data: () => ({
     colorDropDownText: "Select Color",
     makeDropDownText: "Select Make",
-    loaded: true,
+    loaded: false,
     chartData: [],
-    labels: []
+    labels: [],
+    colorData: [],
+    colorLabels: []
   }),
   methods: {
     generateColor: function() {
       for (let x = 0; x < this.chartData.length; x++) {
         this.chartData[x].backgroundColor.push(
           "#" + ((Math.random() * 0xffffff) << 0).toString(16)
-        ); 
+        );
       }
     },
     applyMakeFilter: function() {
       this.loaded = false;
-      var vm = this;
       this.chartData.length = 0;
+      this.colorData.length = 0;
+      const vm = this;
 
       var selectedMakes = this.stock.filter(function(el) {
         return el.make == vm.makeDropDownText;
       });
+
       var models = selectedMakes.map(function(el) {
         return el.model;
       });
-      const occurrences = {};
+      var colors = selectedMakes.map(function(el) {
+        return el.color;
+      });
+
+      const colorOccurrences = {};
+      for (var i = 0, j = colors.length; i < j; i++) {
+        colorOccurrences[colors[i]] = (colorOccurrences[colors[i]] || 0) + 1;
+      }
+
+      console.log(colorOccurrences);
+
+      const makeOccurrences = {};
       for (var i = 0, j = models.length; i < j; i++) {
-        occurrences[models[i]] = (occurrences[models[i]] || 0) + 1;
+        makeOccurrences[models[i]] = (makeOccurrences[models[i]] || 0) + 1;
       }
-      // console.log(occurrences);
-      // this.count = Object.keys(occurrences).length;
-      // this.chartData.labels = Object.keys(occurrences);
-      // this.chartData.datasets[0].data = Object.values(occurrences);
-      // this.loaded = true
-      // vm.$refs.chart.update()
-      
-      //console.log(occurrences)
-      var keys = Object.keys(occurrences);
-      var values = Object.values(occurrences);
-      for (let y = 0; y < Object.keys(occurrences).length; y++) {
-        
-        this.chartData.push({label:keys[y],backgroundColor:[],data:[values[y]]})
+
+      var colors = Object.keys(colorOccurrences);
+      var colorValues = Object.values(colorOccurrences);
+      for (let x = 0; x < Object.keys(colorOccurrences).length; x++) {
+        this.colorData.push({
+          label: colors[x],
+          backgroundColor: [],
+          data: [colorValues[x]]
+        });
       }
-        this.labels[0] = "Makes"
-        this.generateColor();
-        this.loaded = true;
+      this.colorLabels[0] = "Colors";
+
+      var keys = Object.keys(makeOccurrences);
+      var values = Object.values(makeOccurrences);
+      for (let y = 0; y < Object.keys(makeOccurrences).length; y++) {
+        this.chartData.push({
+          label: keys[y],
+          backgroundColor: [],
+          data: [values[y]]
+        });
+      }
+      this.labels[0] = "Makes";
+      this.generateColor();
+      this.loaded = true;
 
 
+      console.log(this.colorData)
+      console.log(this.colorLabels)
     }
   },
   mounted() {

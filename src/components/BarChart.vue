@@ -20,7 +20,7 @@ export default {
     },
     watch: {
       chartData(to, from) {
-        console.log("hi")
+        console.log("here");
         this.render()
       }
     },

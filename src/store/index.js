@@ -10,22 +10,39 @@ export default new Vuex.Store({
     filteredMakes: [],
     colors: [],
     makes: [],
-    range: []
+    range: [],
+    filterCount: 0
   },
   getters: {
     inventory: state => {
       return state.inventory
+    },
+    filterCount: state => {
+      return state.filterCount
     }
   },
   mutations: {
+    GET_FILTERCOUNT(state){
+      state.filterCount = state.inventory.length
+      console.log(state.filterCount)
+    },
     GET_INVENTORY(state, inventory) {
       state.inventory = inventory
+      console.log(state.inventory)
+      console.log(state.inventory.length)
+      // state.filterCount = inventory.length
     },
     GET_COLORS(state, filteredColors) {
       state.inventory = filteredColors
+      // state.filterCount = filteredColors.length
     },
     GET_MAKES(state, filteredMakes){
       state.inventory = filteredMakes
+      console.log(state.inventory)
+      console.log(state.inventory.length)
+      // state.filterCount = filteredMakes.length
+      // console.log(state.range.length)
+      // console.log(state.range)
     },
     SET_COLORS(state, colors) {
       var z = colors.pop()
@@ -76,6 +93,9 @@ export default new Vuex.Store({
         .then(filteredMakes => {
           commit('GET_MAKES', filteredMakes)
         })
+    },
+    getFilterCount({commit}){
+      commit('GET_FILTERCOUNT')
     },
     setColors({commit}) {
       axios.get("https://api-tutor.herokuapp.com/v1/colors")
