@@ -49,7 +49,7 @@
     </section>
     <b-container>
       <!-- <bar-chart :chartData="chartData" /> -->
-      <bar-chart ref='chart' v-if="loaded" :chartData="chartData" />
+      <bar-chart ref='chart' v-if="loaded" :chartData="chartData" :labels="labels" />
     </b-container>
   </div>
 </template>
@@ -66,8 +66,9 @@ export default {
   data: () => ({
     colorDropDownText: "Select Color",
     makeDropDownText: "Select Make",
-    loaded: false,
-    chartData: []
+    loaded: true,
+    chartData: [],
+    labels: []
   }),
   methods: {
     generateColor: function() {
@@ -76,19 +77,16 @@ export default {
           "#" + ((Math.random() * 0xffffff) << 0).toString(16)
         ); 
       }
-       window.dispatchEvent(new Event('resize'));
-       console.log('wow')
-
     },
     applyMakeFilter: function() {
       this.loaded = false;
       var vm = this;
       this.chartData.length = 0;
 
-      var makes = this.stock.filter(function(el) {
+      var selectedMakes = this.stock.filter(function(el) {
         return el.make == vm.makeDropDownText;
       });
-      var models = makes.map(function(el) {
+      var models = selectedMakes.map(function(el) {
         return el.model;
       });
       const occurrences = {};
@@ -109,6 +107,7 @@ export default {
         
         this.chartData.push({label:keys[y],backgroundColor:[],data:[values[y]]})
       }
+        this.labels[0] = "Makes"
         this.generateColor();
         this.loaded = true;
 
@@ -118,13 +117,6 @@ export default {
   mounted() {
     this.$store.dispatch("setColors");
     this.$store.dispatch("setMakes");
-  },
-   watch: {
-     chartData: function (to, from) {
-       console.log('hi')
-       window.dispatchEvent(new Event('resize'));
-       
-    }
   },
   // async mounted() {
   //   this.loaded = false;

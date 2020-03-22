@@ -9,11 +9,14 @@ export default {
       chartData: {
         type: Array,
         default: null
+      },
+      labels: {
+        type: Array,
+        default: null
       }
     },
     mounted() {
       this.render()
-      //this.renderChart(this.chartData, this.options);
     },
     watch: {
       chartData(to, from) {
@@ -24,7 +27,7 @@ export default {
     methods: {
       render() {
         this.renderChart({
-          labels: ["Makes"],
+          labels: this.labels,
           datasets:
             this.chartData
         }, {
